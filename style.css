@@ -1,0 +1,374 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Improved font */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f0f2f5; /* Subtle background for the page */
+    color: #333;
+}
+
+/* Main containers for dropped sections */
+#header-container, #content-container, #footer-container {
+    border: 2px dashed #adb5bd; /* Softer border color */
+    min-height: 100px;
+    margin: 15px; /* Increased margin */
+    padding: 15px; /* Increased padding for better spacing */
+    background-color: #ffffff; /* White background for content areas */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Subtle shadow */
+    border-radius: 8px; /* Rounded corners */
+}
+
+#content-container {
+    flex-grow: 1; /* Allow content container to take available space */
+}
+
+/* Section Palette Styling */
+#section-palette {
+    border: 2px solid #dee2e6; /* Softer border */
+    min-height: 120px; 
+    margin: 15px;
+    padding: 20px; 
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 20px; 
+    background-color: #ffffff; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border-radius: 8px;
+}
+
+/* Styling for option items within the palette */
+.header-option, .content-option, .footer-option {
+    border: 1px dashed #007bff; /* Accent color for borders */
+    padding: 15px; /* Increased padding */
+    cursor: grab;
+    background-color: #f8f9fa; /* Lighter background */
+    text-align: center;
+    margin-bottom: 0; /* Gap is handled by #section-palette */
+    flex-basis: calc(33.333% - 40px); /* Adjust for gap and padding */
+    box-sizing: border-box; 
+    border-radius: 6px; /* Rounded corners for options */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for hover */
+}
+
+.header-option:hover, .content-option:hover, .footer-option:hover {
+    transform: translateY(-3px); /* Slight lift on hover */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Shadow on hover */
+}
+
+/* Styling for the item being dragged from the palette */
+.palette-item-dragging {
+    border: 1px solid #007bff; 
+    cursor: grabbing; 
+    background-color: #e9ecef; 
+    opacity: 0.8; /* Slightly more opaque */
+    transform: scale(1.05); /* Slightly larger when dragging */
+}
+
+/* Styling for when a draggable item is over a drop target */
+.drag-over {
+    background-color: #e6f7ff; /* Light blue feedback */
+    border-style: solid;
+    border-color: #007bff; /* Accent color border */
+}
+
+/* General styling for sections once dropped into containers */
+.dropped-section {
+    padding: 25px; /* More padding */
+    margin-bottom: 20px; 
+    background-color: #ffffff; 
+    border: 1px solid #e9ecef; /* Softer border */
+    border-radius: 6px; /* Rounded corners */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04); /* Subtle shadow */
+}
+/* Remove margin from the last dropped section in content to avoid double margin with footer */
+#content-container > .dropped-section:last-child {
+    margin-bottom: 0;
+}
+
+
+/* --- Specific styling for DROPPED sections --- */
+
+/* Headers */
+.dropped-section[data-type^="header-"] {
+    background-color: #f8f9fa; /* Slightly different background for headers */
+    padding: 20px;
+}
+.dropped-section[data-type^="header-"] h1 {
+    font-size: 2.2em;
+    color: #343a40;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+.dropped-section[data-type="header-nav"] nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px; /* Increased gap */
+    justify-content: center; /* Center navigation links */
+}
+.dropped-section[data-type="header-nav"] nav a {
+    text-decoration: none;
+    color: #007bff; /* Accent color for links */
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+.dropped-section[data-type="header-nav"] nav a:hover {
+    background-color: #e9ecef;
+    text-decoration: none;
+}
+
+/* Content - About Me */
+.dropped-section[data-type="content-about"] h2 {
+    color: #495057;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+.dropped-section[data-type="content-about"] p {
+    line-height: 1.6;
+    color: #6c757d;
+}
+
+/* Content - Gallery */
+.dropped-section[data-type="content-gallery"] h2 {
+    color: #495057;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+.dropped-section[data-type="content-gallery"] .gallery-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 15px; /* Increased gap */
+    justify-content: flex-start; /* Align items to the start */
+    margin-top: 10px;
+}
+.dropped-section[data-type="content-gallery"] .gallery-container .gallery-item-placeholder {
+    width: 120px;  /* Larger placeholders */
+    height: 120px;
+    background-color: #e9ecef; /* Consistent light background */
+    border: 1px solid #ced4da; /* Softer border */
+    border-radius: 4px; /* Rounded corners */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+/* Content - Contact Form */
+.dropped-section[data-type="content-contact"] h2 {
+    color: #495057;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+.dropped-section[data-type="content-contact"] form div {
+    margin-bottom: 15px; /* Increased spacing */
+}
+.dropped-section[data-type="content-contact"] form label {
+    display: block;
+    font-size: 1em; /* Larger label */
+    margin-bottom: 5px; /* Space between label and input */
+    color: #495057;
+}
+.dropped-section[data-type="content-contact"] form input[type="text"],
+.dropped-section[data-type="content-contact"] form input[type="email"],
+.dropped-section[data-type="content-contact"] form textarea {
+    width: calc(100% - 24px); /* Full width minus padding and border */
+    padding: 10px;
+    font-size: 1em;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: #fff; /* Ensure input background is white */
+}
+.dropped-section[data-type="content-contact"] form textarea {
+    min-height: 100px; /* Minimum height for textarea */
+    resize: vertical; /* Allow vertical resize */
+}
+.dropped-section[data-type="content-contact"] form button[type="submit"] {
+    background-color: #28a745; /* Green for submit */
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 12px 20px; /* Larger button */
+    font-size: 1em;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+.dropped-section[data-type="content-contact"] form button[type="submit"]:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* Footers */
+.dropped-section[data-type^="footer-"] {
+    text-align: center;
+    font-size: 0.95em; /* Slightly larger font */
+    padding: 20px; /* More padding */
+    background-color: #f8f9fa; /* Consistent with header background */
+    color: #6c757d;
+    margin-top: auto; /* Push footer to the bottom if content is short */
+}
+.dropped-section[data-type="footer-social"] ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0; /* Add margin above the links */
+    display: flex;
+    justify-content: center;
+    gap: 25px; /* Increased gap for social links */
+}
+.dropped-section[data-type="footer-social"] ul li a {
+    text-decoration: none;
+    color: #007bff; /* Accent color */
+    font-weight: 500;
+}
+.dropped-section[data-type="footer-social"] ul li a:hover {
+    text-decoration: underline;
+}
+
+
+/* --- Styles for elements within PALETTE (Preview) --- */
+/* Keep palette item previews minimal but indicative */
+
+/* General styling for text in palette options */
+.header-option h1, .content-option h2, .footer-option p {
+    font-size: 1em; /* Smaller font for palette items */
+    margin: 5px 0;
+    color: #495057;
+}
+.header-option p, .content-option p {
+    font-size: 0.8em;
+    color: #6c757d;
+}
+
+/* Palette - Gallery item placeholders */
+.content-option[data-type="content-gallery"] .gallery-container {
+    display: flex;
+    gap: 3px; /* Smaller gap for palette */
+    justify-content: center;
+    margin-top: 3px;
+}
+.content-option[data-type="content-gallery"] .gallery-item-placeholder {
+    border: 1px dashed #adb5bd; /* Softer border */
+    padding: 5px 3px; /* Smaller padding */
+    font-size: 0.7em; /* Smaller font */
+    background-color: #e9ecef; /* Light background */
+    border-radius: 2px;
+}
+
+/* Palette - Contact form elements (minimal styling) */
+.content-option[data-type="content-contact"] form div {
+    margin-bottom: 3px;
+    text-align: left;
+}
+.content-option[data-type="content-contact"] form label {
+    display: block;
+    font-size: 0.75em; /* Smaller font */
+    margin-bottom: 1px;
+}
+.content-option[data-type="content-contact"] form input,
+.content-option[data-type="content-contact"] form textarea,
+.content-option[data-type="content-contact"] form button {
+    width: calc(100% - 8px); 
+    padding: 2px;
+    font-size: 0.75em;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 2px;
+}
+.content-option[data-type="content-contact"] form button {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    cursor: default; /* No pointer cursor in palette */
+    margin-top: 3px;
+}
+
+/* Palette - Nav links */
+.header-option[data-type="header-nav"] nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 3px 0 0 0;
+    display: flex;
+    justify-content: center;
+    gap: 5px; /* Smaller gap */
+}
+.header-option[data-type="header-nav"] nav ul li a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 0.8em; /* Smaller font */
+}
+
+/* Palette - Social links */
+.footer-option[data-type="footer-social"] ul {
+    list-style: none;
+    padding: 0;
+    margin: 3px 0 0 0;
+    display: flex;
+    justify-content: center;
+    gap: 5px; /* Smaller gap */
+}
+.footer-option[data-type="footer-social"] ul li a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 0.8em; /* Smaller font */
+}
+
+/* Styling for item being reordered within content container */
+.content-item-dragging {
+    opacity: 0.6;
+    border: 2px dashed #007bff; /* Highlight while dragging */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Export Controls Styling */
+#export-controls {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f9fa; /* Light background for the controls area */
+    margin: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+#export-html-button {
+    background-color: #007bff; /* Primary button color */
+    color: white;
+    border: none;
+    padding: 12px 25px; /* Generous padding */
+    font-size: 1.1em; /* Larger font */
+    border-radius: 6px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow */
+}
+
+#export-html-button:hover {
+    background-color: #0056b3; /* Darker on hover */
+    transform: translateY(-1px); /* Slight lift on hover */
+}
+
+#export-html-button:active {
+    transform: translateY(0px); /* Click feedback */
+}
+
+#exported-html {
+    width: calc(100% - 40px); /* Full width minus padding */
+    max-width: 800px; /* Max width for readability */
+    height: 300px; /* Increased height */
+    margin: 20px auto 0 auto; /* Centered with margin top */
+    padding: 15px;
+    box-sizing: border-box;
+    border: 1px solid #ced4da; /* Softer border */
+    border-radius: 6px;
+    background-color: #fff; /* White background */
+    font-family: 'Courier New', Courier, monospace; /* Monospace font for code */
+    font-size: 0.9em;
+    line-height: 1.4;
+    white-space: pre; /* Preserve whitespace and newlines */
+    overflow: auto; /* Add scrollbars if content overflows */
+    display: none; /* Initially hidden - JS will show it */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
