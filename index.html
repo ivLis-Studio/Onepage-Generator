@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Page Builder</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div id="header-container"></div>
+    <div id="content-container"></div>
+    <div id="footer-container"></div>
+    <div id="section-palette">
+        <div class="header-option" data-type="header-simple" data-section-category="header">
+            <h1>My Portfolio</h1>
+        </div>
+        <div class="header-option" data-type="header-nav" data-section-category="header">
+            <header>
+                <h1>My Portfolio</h1>
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+            </header>
+        </div>
+        <div class="content-option" data-type="content-about" data-section-category="content">
+            <h2>About Me</h2>
+            <p>This is a placeholder for a paragraph describing yourself. You can talk about your skills, experience, and passions here.</p>
+        </div>
+        <div class="content-option" data-type="content-gallery" data-section-category="content">
+            <h2>My Work</h2>
+            <div class="gallery-container">
+                <div class="gallery-item-placeholder">Item 1</div>
+                <div class="gallery-item-placeholder">Item 2</div>
+                <div class="gallery-item-placeholder">Item 3</div>
+            </div>
+        </div>
+        <div class="content-option" data-type="content-contact" data-section-category="content">
+            <h2>Contact Me</h2>
+            <form>
+                <div>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name">
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Your Email">
+                </div>
+                <div>
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" placeholder="Your Message"></textarea>
+                </div>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+        <div class="footer-option" data-type="footer-copyright" data-section-category="footer">
+            <p>&copy; 2023 Your Name</p>
+        </div>
+        <div class="footer-option" data-type="footer-social" data-section-category="footer">
+            <p>&copy; 2023 Your Name</p>
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">LinkedIn</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="export-controls" style="text-align: center; margin: 20px;">
+        <button id="export-html-button">Export HTML</button>
+        <textarea id="exported-html" readonly style="display: none; width: 90%; height: 250px; margin-top: 15px; border: 1px solid #ccc; padding: 10px; box-sizing: border-box; background-color: #f9f9f9;"></textarea>
+    </div>
+</body>
+</html>
